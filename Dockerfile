@@ -1,22 +1,23 @@
-FROM linuxserver/smokeping
+FROM archlinux/archlinux:latest
 
-# copy tcpping script
-COPY tcpping /defaults/
+# install dump-init
+COPY tmp/ /tmp
+
+RUN echo "**** install dumb-init ****" && \
+    install -m755 -D /tmp/dumb-init /usr/bin/ && \
+    echo "**** install tcpping ****" && \
+    install -m755 -D /tmp/tcpping /usr/bin/ && \
+    echo "**** install start script ****" && \
+    install -m755 -D /tmp/start.sh /
 
 # add local files
-RUN mkdir /cache && \
-    chown abc /cache && \
-    chmod +s /usr/bin/tcptraceroute && \
-    rm -rf /etc/services.d/apache && \
-    apk add --no-cache perl-lwp-protocol-https && \
+RUN yes | pacman -Sy smokeping perl-lwp-protocol-https fping traceroute && \
     echo "**** install tcping script ****" && \
-    install -m755 -D /defaults/tcpping /usr/bin/ && \
-    echo "**** create alias for fping ****" && \
-    ln -s /usr/sbin/fping /usr/bin/fping
-
-COPY root/ /
-
+    install -m755 -D /tmp/tcpping /usr/bin/ && \
+    yes | pacman -Scc
 
 # Override these environment variables
 ENV SLAVE_SECRET=1234567 
 ENV MASTER_URL=http://smokeping-master:80/smokeping/smokeping.cgi
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/start.sh"]
