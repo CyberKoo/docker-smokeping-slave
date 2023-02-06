@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/with-contenv sh
 
 echo -- Set Timezone --
 echo timezone: $TZ
@@ -18,8 +18,7 @@ echo --- Starting ---
 echo exec /usr/bin/smokeping --master-url=$MASTER_URL --cache-dir=/tmp --shared-secret=/slave/slave_secret --nodaemon
 # Enable debug log
 sed -i 's/my .use_debuglog;/my \$use_debuglog=1;/g' /usr/share/perl5/vendor_perl/Smokeping.pm
-# Add log message to show data sent to server
-#grep 'Sending to server:'  /usr/share/perl5/vendor_perl/Smokeping/Slave.pm || sed -i '75iSmokeping::do_debuglog("Sending to server:\\n$data_dump");' /usr/share/perl5/vendor_perl/Smokeping/Slave.pm
 
+echo "create smokeping PID file /tmp/smokeping.pid : $$"
+echo $$ > /tmp/smokeping.pid
 exec /usr/bin/smokeping --master-url=$MASTER_URL --cache-dir=/tmp --shared-secret=/slave/slave_secret --nodaemon
-

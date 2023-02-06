@@ -1,8 +1,6 @@
 # Instructions
 
-Please see linuxserver/smokeping for instructions.
-
-This image is complementary to that smokeping image.  It will run Smokeping in slave mode and turn off the Apache web server to conserve resources.
+This image is will run Smokeping in slave mode and turn off the Apache web server to conserve resources.
 
 To run, you need two environment variables
 
@@ -12,6 +10,6 @@ To run, you need two environment variables
 In addition, you'll need 
 * *slavehost* = The name you have used in your master Smokeping for this instance. 
 
-docker run -d -h slavehost --name slave2 -e SLAVE_SECRET=3c6f -e MASTER_URL=http://10.6.1.7/smokeping/smokeping.cgi -e PGID=1000 -e PUID=1000 -e TZ=UTC divyavanmahajan/smokeping-slave
+docker run -d -h slavehost --name slave2 -e SLAVE_SECRET=3c6f -e MASTER_URL=http://10.6.1.7/smokeping/smokeping.cgi -e PGID=1000 -e PUID=1000 -e TZ=UTC waf7225/smokeping-slave
 
 
