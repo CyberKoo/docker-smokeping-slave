@@ -39,5 +39,5 @@ jobs:
         with:
           context: .
           tags: waf7225/smokeping-slave:latest
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/386,linux/arm64,linux/arm/v7,linux/arm/v6
           push: true
