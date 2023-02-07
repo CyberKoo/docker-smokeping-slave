@@ -11,9 +11,8 @@ RUN echo "*** install softwares ***" && \
     echo "*** create fping alias ***" && \
     ln -s /usr/sbin/fping /usr/bin  && \
     echo "**** install service script ****" && \
-    mv /tmp/services.d /etc && \
-    echo "**** grant service execute permission ****" && \
-    chmod +x /etc/services.d/smokeping-slave/run && \
+    mv /tmp/services/* /etc/s6-overlay/s6-rc.d && \
+    touch /etc/s6-overlay/s6-rc.d/user/contents.d/smokeping-slave && \
     echo "*** patch smokeping-slave ***" && \
     patch -i /tmp/smokeping-slave.patch -u /usr/share/perl5/vendor_perl/Smokeping/Slave.pm && \
     echo "**** clean tmp folder ****" && \
