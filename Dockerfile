@@ -5,7 +5,7 @@ COPY tmp/ /tmp
 
 # build image
 RUN echo "*** install softwares ***" && \
-    apk --no-cache add openssl ca-certificates-cacert smokeping perl-lwp-protocol-https fping tcptraceroute tzdata s6-overlay patch libcap && \
+    apk --no-cache add openssl ca-certificates-cacert smokeping perl-lwp-protocol-https fping tcptraceroute tzdata s6-overlay libcap && \
     echo "**** install tcping script ****" && \
     install -m755 -D /tmp/tcpping /usr/bin/tcpping && \
     echo "*** create fping alias ***" && \
@@ -15,8 +15,6 @@ RUN echo "*** install softwares ***" && \
     echo "**** install service script ****" && \
     mv /tmp/services/* /etc/s6-overlay/s6-rc.d && \
     touch /etc/s6-overlay/s6-rc.d/user/contents.d/smokeping-slave && \
-    echo "*** patch smokeping-slave ***" && \
-    patch -i /tmp/smokeping-slave.patch -u /usr/share/perl5/vendor_perl/Smokeping/Slave.pm && \
     echo "**** clean tmp folder ****" && \
     rm -fr /tmp/*
 
