@@ -15,10 +15,10 @@ echo -- Slave Secret --
 cat /slave/slave_secret
 echo ------------------
 echo --- Starting ---
-echo exec /usr/bin/smokeping --master-url=$MASTER_URL --cache-dir=/tmp --shared-secret=/slave/slave_secret --nodaemon
+echo exec /usr/sbin/smokeping --master-url=$MASTER_URL --cache-dir=/tmp --shared-secret=/slave/slave_secret --nodaemon
 # Enable debug log
 sed -i 's/my .use_debuglog;/my \$use_debuglog=1;/g' /usr/share/perl5/vendor_perl/Smokeping.pm
 
 echo "create smokeping PID file /tmp/smokeping.pid : $$"
 echo $$ > /tmp/smokeping.pid
-exec /usr/bin/smokeping --master-url=$MASTER_URL --cache-dir=/tmp --shared-secret=/slave/slave_secret --nodaemon
+exec /usr/sbin/smokeping --master-url=$MASTER_URL --cache-dir=/tmp --shared-secret=/slave/slave_secret --nodaemon
