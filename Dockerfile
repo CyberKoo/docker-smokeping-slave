@@ -11,7 +11,7 @@ RUN echo "*** install softwares ***" && \
     echo "*** create fping alias ***" && \
     ln -s /usr/sbin/fping /usr/bin  && \
     echo "*** fping setcap ***" && \
-    setcap cap_net_raw+ep /usr/sbin/fping  && \
+    setcap cap_net_raw+p /usr/sbin/fping  && \
     echo "**** install service script ****" && \
     mv /tmp/services/* /etc/s6-overlay/s6-rc.d && \
     touch /etc/s6-overlay/s6-rc.d/user/contents.d/smokeping-slave && \
